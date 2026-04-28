@@ -1,0 +1,372 @@
+@import "tailwindcss";
+
+/* ============================================================
+   StemmQ Design Token System — Root (Landing · Auth · Public)
+   ============================================================ */
+
+/* ── Light mode ───────────────────────────────────────────── */
+:root {
+  /* Surfaces — warm white base */
+  --background:         #f7f7f5;
+  --foreground:         #09090b;
+  --card:               #ffffff;
+  --card-foreground:    #09090b;
+
+  /* Neutrals */
+  --muted:              #f0f0ed;
+  --muted-foreground:   #71717a;
+  --border:             #e4e4e7;
+  --input:              #e4e4e7;
+
+  /* Primary (dark slate) */
+  --primary:            #18181b;
+  --primary-foreground: #f7f7f5;
+
+  /* Brand accent — indigo */
+  --accent:             #6366f1;
+  --accent-foreground:  #ffffff;
+  --accent-secondary:   #3b82f6;
+  --accent-muted:       #eef2ff;
+  --accent-hover:       #4f46e5;
+
+  /* Semantic */
+  --warning:            #f59e0b;
+  --warning-foreground: #ffffff;
+  --danger:             #ef4444;
+  --danger-foreground:  #ffffff;
+  --success:            #10b981;
+  --success-foreground: #ffffff;
+
+  /* Focus ring */
+  --ring:               #6366f1;
+  --ring-offset:        #ffffff;
+
+  /* Sidebar */
+  --sidebar:            #ffffff;
+  --sidebar-foreground: #3f3f46;
+  --sidebar-border:     #f0f0ed;
+  --sidebar-active:     #f0f0ed;
+  --sidebar-accent:     #6366f1;
+
+  /* Shadows (adaptive, CSS-var driven) */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08);
+
+  /* Brand glow */
+  --shadow-brand:    0 4px 24px rgba(99,102,241,0.22), 0 1px 4px rgba(99,102,241,0.12);
+  --shadow-brand-lg: 0 8px 40px rgba(99,102,241,0.30), 0 2px 8px rgba(99,102,241,0.18);
+}
+
+/* ── Dark mode — brand indigo experience ─────────────────── */
+.dark {
+  /* Surfaces — deep indigo-tinted dark */
+  --background:         #0d0d1a;
+  --foreground:         #ededf5;
+  --card:               #12121f;
+  --card-foreground:    #ededf5;
+
+  /* Neutrals — indigo-tinted */
+  --muted:              #1a1a2e;
+  --muted-foreground:   #8888aa;
+  --border:             rgba(99,102,241,0.15);
+  --input:              rgba(99,102,241,0.12);
+
+  /* Primary */
+  --primary:            #ededf5;
+  --primary-foreground: #0d0d1a;
+
+  /* Brand accent — stays vivid in dark */
+  --accent:             #818cf8;
+  --accent-foreground:  #ffffff;
+  --accent-secondary:   #60a5fa;
+  --accent-muted:       #1e1b4b;
+  --accent-hover:       #6366f1;
+
+  /* Semantic */
+  --warning:            #fbbf24;
+  --warning-foreground: #0d0d1a;
+  --danger:             #f87171;
+  --danger-foreground:  #0d0d1a;
+  --success:            #34d399;
+  --success-foreground: #0d0d1a;
+
+  /* Focus ring */
+  --ring:               #818cf8;
+  --ring-offset:        #0d0d1a;
+
+  /* Sidebar */
+  --sidebar:            #111120;
+  --sidebar-foreground: #9090b5;
+  --sidebar-border:     rgba(99,102,241,0.12);
+  --sidebar-active:     rgba(99,102,241,0.10);
+  --sidebar-accent:     #818cf8;
+
+  /* Shadows (deeper, indigo-tinted) */
+  --shadow-xs: 0 1px 2px rgba(0,0,16,0.50);
+  --shadow-sm: 0 1px 4px rgba(0,0,16,0.60);
+  --shadow-md: 0 4px 16px rgba(0,0,16,0.70);
+  --shadow-lg: 0 8px 32px rgba(0,0,16,0.75);
+  --shadow-xl: 0 20px 60px rgba(0,0,16,0.80);
+
+  --shadow-brand:    0 4px 24px rgba(99,102,241,0.28), 0 1px 4px rgba(99,102,241,0.16);
+  --shadow-brand-lg: 0 8px 40px rgba(99,102,241,0.38), 0 2px 8px rgba(99,102,241,0.22);
+}
+
+/* ── @theme: expose tokens to Tailwind utilities ─────────── */
+@theme inline {
+  --color-background:       var(--background);
+  --color-foreground:       var(--foreground);
+  --color-card:             var(--card);
+  --color-card-foreground:  var(--card-foreground);
+  --color-muted:            var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border:           var(--border);
+  --color-input:            var(--input);
+  --color-primary:          var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent:           var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-muted:     var(--accent-muted);
+  --color-warning:          var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger:           var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-success:          var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-ring:             var(--ring);
+  --color-sidebar:          var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border:   var(--sidebar-border);
+  --color-sidebar-active:   var(--sidebar-active);
+  --color-sidebar-accent:   var(--sidebar-accent);
+
+  --font-sans:    var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono:    var(--font-mono);
+
+  --radius-sm:  0.375rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* ── Fluid typography scale ───────────────────────────────── */
+:root {
+  --text-xs:   clamp(0.6875rem, 0.65rem  + 0.10vw, 0.75rem);
+  --text-sm:   clamp(0.8125rem, 0.78rem  + 0.15vw, 0.875rem);
+  --text-base: clamp(0.875rem,  0.84rem  + 0.18vw, 1rem);
+  --text-lg:   clamp(1rem,      0.95rem  + 0.25vw, 1.125rem);
+  --text-xl:   clamp(1.125rem,  1.05rem  + 0.35vw, 1.25rem);
+  --text-2xl:  clamp(1.25rem,   1.1rem   + 0.65vw, 1.5rem);
+  --text-3xl:  clamp(1.5rem,    1.2rem   + 1.20vw, 1.875rem);
+  --text-4xl:  clamp(1.75rem,   1.3rem   + 1.80vw, 2.25rem);
+  --text-5xl:  clamp(2rem,      1.4rem   + 2.50vw, 3rem);
+  --text-6xl:  clamp(2.5rem,    1.6rem   + 3.50vw, 3.75rem);
+  --text-7xl:  clamp(3rem,      1.8rem   + 4.50vw, 4.5rem);
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1280px;
+  --container-2xl: 1400px;
+}
+
+/* ── Base reset ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+::selection { background: rgba(99,102,241,0.18); color: inherit; }
+
+/* ── Smooth theme transitions ─────────────────────────────── */
+/*
+  Applied ONLY when the user has explicitly chosen a theme
+  (prevents flash on initial load). Add `data-theme-ready`
+  to <html> after the initial script runs to enable transitions.
+*/
+html[data-theme-ready] *,
+html[data-theme-ready] *::before,
+html[data-theme-ready] *::after {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.15s ease,
+    box-shadow 0.2s ease !important;
+}
+
+/* Exception: never transition things that look wrong with transitions */
+html[data-theme-ready] img,
+html[data-theme-ready] video,
+html[data-theme-ready] svg,
+html[data-theme-ready] canvas,
+html[data-theme-ready] [data-no-transition] {
+  transition: none !important;
+}
+
+/* ── Focus visible ────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Scrollbars ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-foreground); }
+
+/* ── Utility classes ──────────────────────────────────────── */
+.font-display { font-family: var(--font-display), system-ui, sans-serif; }
+.font-mono    { font-family: var(--font-mono), monospace; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 50%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient background */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 50%, #a855f7 100%);
+}
+
+/* Subtle dot grid for hero / auth sections */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Animated gradient orb mesh */
+.gradient-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.14) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59,130,246,0.11) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(168,85,247,0.09) 0%, transparent 50%);
+}
+.dark .gradient-mesh {
+  background:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.20) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(59,130,246,0.15) 0%, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(168,85,247,0.12) 0%, transparent 50%);
+}
+
+/* Frosted glass card */
+.glass {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.dark .glass {
+  background: rgba(13,13,26,0.82);
+  border: 1px solid rgba(99,102,241,0.14);
+}
+
+/* Shimmer skeleton loading */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--muted);
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.10) 50%, transparent 100%);
+  animation: shimmer 1.6s infinite;
+}
+.dark .shimmer::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+}
+
+/* Named shadow utilities */
+.shadow-brand    { box-shadow: var(--shadow-brand); }
+.shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
+.shadow-elevated { box-shadow: var(--shadow-lg); }
+.shadow-glass    { box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(255,255,255,0.06); }
+
+/* ── Animations ───────────────────────────────────────────── */
+@keyframes fadeIn    { from { opacity: 0; }                           to { opacity: 1; } }
+@keyframes slideUp   { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn   { from { opacity: 0; transform: scale(0.96); }  to { opacity: 1; transform: scale(1); } }
+@keyframes pageIn    { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounceGen {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+}
+
+.page-enter           { animation: pageIn 0.3s ease-out forwards; }
+.animate-bounce-gentle { animation: bounceGen 2s ease-in-out infinite; }
+.animate-pulse-ring    { animation: pulseRing 2s ease-out infinite; }
+
+/* ── Fluid heading helpers ────────────────────────────────── */
+.fluid-heading-1 { font-size: var(--text-7xl); line-height: 1.08; letter-spacing: -0.025em; }
+.fluid-heading-2 { font-size: var(--text-5xl); line-height: 1.14; letter-spacing: -0.018em; }
+.fluid-heading-3 { font-size: var(--text-4xl); line-height: 1.20; letter-spacing: -0.012em; }
+.fluid-heading-4 { font-size: var(--text-3xl); line-height: 1.25; }
+.fluid-heading-5 { font-size: var(--text-2xl); line-height: 1.30; }
+.fluid-body-lg   { font-size: var(--text-lg);  line-height: 1.65; }
+.fluid-body      { font-size: var(--text-base); line-height: 1.65; }
+.fluid-body-sm   { font-size: var(--text-sm);  line-height: 1.55; }
+
+/* ── Responsive container ─────────────────────────────────── */
+.container-responsive {
+  width: 100%;
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px)  { .container-responsive { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container-responsive { padding-inline: 2rem; } }
+
+/* ── Number input — remove spinners ──────────────────────── */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }
+
+/* ── Sonner toast overrides ───────────────────────────────── */
+[data-sonner-toaster] [data-styled='true'] {
+  border-radius: 12px !important;
+}

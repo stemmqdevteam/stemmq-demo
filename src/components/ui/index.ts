@@ -1,0 +1,13 @@
+// StemmQ UI Library — barrel export
+export { Button, buttonClass } from './button'
+export type { ButtonVariant, ButtonSize } from './button'
+export { Input } from './input'
+export type { InputProps } from './input'
+export { Textarea } from './textarea'
+export { Select } from './select'
+export { Card, CardHeader } from './card'
+export { Badge } from './badge'
+export type { BadgeVariant } from './badge'
+export { Avatar, Skeleton, ScoreRing, EmptyState, Divider, Tooltip, Spinner } from './primitives'
+export { FeatureGate, UpgradeBanner } from './feature-gate'
+export { ThemeToggle } from './theme-toggle'

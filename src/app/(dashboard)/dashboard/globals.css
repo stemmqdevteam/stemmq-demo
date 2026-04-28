@@ -1,0 +1,99 @@
+/* ============================================================
+   StemmQ Dashboard — Token Overrides + Utilities
+   Add to dashboard layout: import '@/styles/dashboard.css'
+   ============================================================ */
+
+/* LIGHT MODE — #f7f7f5 warm canvas */
+:root {
+  --background:        #f7f7f5;
+  --foreground:        #111210;
+  --card:              #ffffff;
+  --card-foreground:   #111210;
+  --muted:             #f0f0ed;
+  --muted-foreground:  #6b7280;
+  --border:            rgba(0,0,0,0.07);
+  --accent:            #5b5bd6;
+  --accent-foreground: #ffffff;
+  --accent-muted:      #eeeeff;
+  --sidebar:           #ffffff;
+  --sidebar-foreground:#374151;
+  --sidebar-border:    #ebebea;
+  --sidebar-active:    #f0f0ed;
+  --sidebar-accent:    #5b5bd6;
+  --success:           #16a34a;
+  --warning:           #d97706;
+  --danger:            #dc2626;
+}
+
+/* DARK MODE */
+.dark {
+  --background:        #111110;
+  --foreground:        #f0efe8;
+  --card:              #1a1918;
+  --card-foreground:   #f0efe8;
+  --muted:             #232220;
+  --muted-foreground:  #9ca3af;
+  --border:            rgba(255,255,255,0.07);
+  --accent:            #7b7aea;
+  --accent-foreground: #ffffff;
+  --accent-muted:      #1e1b3a;
+  --sidebar:           #0e0e0d;
+  --sidebar-foreground:#9ca3af;
+  --sidebar-border:    rgba(255,255,255,0.06);
+  --sidebar-active:    rgba(255,255,255,0.05);
+  --sidebar-accent:    #7b7aea;
+  --success:           #22c55e;
+  --warning:           #f59e0b;
+  --danger:            #ef4444;
+}
+
+.shadow-brand {
+  box-shadow: 0 4px 20px rgba(91,91,214,0.30), 0 1px 4px rgba(91,91,214,0.16);
+}
+.shadow-elevated {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+}
+.dark .shadow-elevated {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+}
+.gradient-bg {
+  background: linear-gradient(135deg,#5b5bd6 0%,#4f46e5 45%,#7c3aed 100%);
+}
+
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--muted);
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.14) 50%,transparent 100%);
+  animation: shimmer-slide 1.6s ease-in-out infinite;
+}
+.dark .shimmer::after {
+  background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.05) 50%,transparent 100%);
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: page-in 0.28s ease-out forwards; }
+
+[data-sonner-toaster] [data-styled='true'] {
+  font-family: var(--font-body), system-ui, sans-serif !important;
+  border-radius: 14px !important;
+  background: var(--card) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }
