@@ -30,6 +30,13 @@ export default async function MembersPage() {
     .eq('org_id', orgId)
     .order('joined_at', { ascending: true })
 
+  const normalizedMembers = (members ?? []).map((member: any) => ({
+    ...member,
+    user_profiles: Array.isArray(member.user_profiles)
+      ? member.user_profiles[0] ?? null
+      : member.user_profiles ?? null,
+  }))
+
   // Load pending invitations
   const { data: invitations } = await supabase
     .from('invitations')
@@ -51,7 +58,7 @@ export default async function MembersPage() {
       currentUserId={user.id}
       currentUserRole={membership.role}
       isAdmin={isAdmin}
-      members={members ?? []}
+      members={normalizedMembers}
       invitations={invitations ?? []}
       plan={subscription?.plan ?? 'free'}
     />
