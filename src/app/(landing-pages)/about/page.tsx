@@ -441,8 +441,10 @@ function PrinciplesSection() {
             const Icon = p.icon;
             return (
               <Reveal key={p.title} delay={i * 0.09}>
-                <motion.div whileHover={{ y: -5 }}
+                <motion.div
+                  whileHover={{ y: -5 }}
                   className="group relative rounded-2xl border border-border/50 bg-card/40 p-5 sm:p-7 h-full overflow-hidden transition-all hover:border-border"
+                >
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                     style={{ background: `radial-gradient(circle at 30% 20%, ${p.color}08, transparent 60%)` }} />
                   <div className="relative">
@@ -453,6 +455,7 @@ function PrinciplesSection() {
                     <h3 className="text-sm sm:text-base font-bold text-foreground mb-3">{p.title}</h3>
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                   </div>
+                </motion.div>
                 </motion.div>
               </Reveal>
             );

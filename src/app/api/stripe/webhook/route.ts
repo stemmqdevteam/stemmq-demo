@@ -20,9 +20,6 @@ import type Stripe from 'stripe'
  *   invoice.payment_failed         → payment failed, notify user
  */
 
-// Tell Next.js not to parse the body — Stripe needs raw bytes for signature verification
-export const config = { api: { bodyParser: false } }
-
 async function getOrgIdFromCustomer(
   admin: ReturnType<typeof createAdminClient>,
   customerId: string
@@ -63,7 +60,7 @@ export async function POST(request: Request) {
 
       // ── Payment succeeded → activate plan ─────────────────
       case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.CheckoutSession
+        const session = event.data.object as Stripe.Checkout.Session
         if (session.mode !== 'subscription') break
 
         const orgId  = session.metadata?.org_id

@@ -40,7 +40,7 @@ async function getDashboardStats(
     supabase.from('assumptions').select('outcome')
       .eq('org_id', orgId).eq('status', 'resolved'),
   ])
-
+  
   // Avg quality score
   const scores = qualityResult.data?.map(d => d.quality_score).filter(Boolean) ?? []
   const avgQuality = scores.length > 0

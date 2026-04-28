@@ -24,7 +24,8 @@ export const STRIPE_PRICES = {
 } as const
 
 /** Map Stripe price ID → our plan type */
-export function getPlanFromPriceId(priceId: string): 'pro' | 'enterprise' | null {
+export function getPlanFromPriceId(priceId?: string): 'pro' | 'enterprise' | null {
+  if (!priceId) return null
   if (priceId === STRIPE_PRICES.pro_monthly) return 'pro'
   if (priceId === STRIPE_PRICES.pro_yearly)  return 'pro'
   return null
