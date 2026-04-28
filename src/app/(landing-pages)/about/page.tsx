@@ -249,12 +249,7 @@ function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const counts = [
-    useCounter(orgStats[0].value, 1800, inView),
-    useCounter(orgStats[1].value, 1800, inView),
-    useCounter(orgStats[2].value, 1800, inView),
-    useCounter(orgStats[3].value, 1800, inView),
-  ];
+  const counts = orgStats.map((stat) => useCounter(stat.value, 1800, inView));
 
   return (
     <section ref={ref} className="py-12 sm:py-14 border-y border-border/50 bg-card/40">
@@ -455,7 +450,6 @@ function PrinciplesSection() {
                     <h3 className="text-sm sm:text-base font-bold text-foreground mb-3">{p.title}</h3>
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                   </div>
-                </motion.div>
                 </motion.div>
               </Reveal>
             );
