@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { SimulationsList } from '@/features/simulations/components/simulations-list'
-import { ROUTES, PLAN_FEATURES } from '@/constants'
+import { ROUTES } from '@/constants'
 
 export const metadata: Metadata = { title: 'Simulations · StemmQ' }
 
