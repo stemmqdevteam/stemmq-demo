@@ -43,7 +43,7 @@ export default async function OrganizationSettingsPage() {
       </div>
 
       {isAdmin ? (
-        <OrgSettingsForm org={org} />
+        <OrgSettingsForm org={org} isAdmin={isAdmin} />
       ) : (
         <div className="space-y-4">
           <div className="p-5 rounded-2xl bg-surface-50 dark:bg-surface-800 border border-surface-100 dark:border-surface-800">
