@@ -332,7 +332,8 @@ function DecisionGateSection() {
     return () => clearInterval(t);
   }, [inView]);
 
-  const detail = gateSteps[activeDetail];
+  const safeActiveDetail = Math.min(activeDetail, gateSteps.length - 1);
+  const detail = gateSteps[safeActiveDetail]!;
   const DIcon = detail.icon;
 
   return (
@@ -384,7 +385,7 @@ function DecisionGateSection() {
                   {i < gateSteps.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.1 }}
                       className="h-px w-4 mx-0.5"
-                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "var(--border)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1]?.color || step.color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );

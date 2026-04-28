@@ -579,7 +579,8 @@ function SuccessScreen({ role, name }: { role: typeof roleDatabase[string]; name
 export default function ApplyPage() {
   const searchParams = useSearchParams();
   const roleSlug = searchParams?.get("role") ?? "default";
-  const role = roleDatabase[roleSlug] ?? roleDatabase["default"];
+  const defaultRole = roleDatabase["default"] as typeof roleDatabase[string];
+  const role = roleDatabase[roleSlug] ?? defaultRole;
 
   const [step, setStep] = useState<Step>(1);
   const [dir, setDir] = useState(1);
