@@ -719,7 +719,7 @@ export default function ApplyPage() {
                           </div>
                           <h2 className="text-lg sm:text-xl font-bold text-white">Your application</h2>
                           <p className="text-xs sm:text-sm text-white/35 mt-1">
-                            Step {step} of 4 — {stepMeta[step - 1].label}
+                            Step {step} of 4 — {stepMeta[step - 1]?.label ?? ""}
                           </p>
                         </div>
 
