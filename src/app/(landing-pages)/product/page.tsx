@@ -171,7 +171,7 @@ function PipelineViz() {
                 animate={{ opacity: isPast ? 1 : 0.15, scaleX: isPast ? 1 : 0.5 }}
                 transition={{ duration: 0.5 }}
                 className="h-px w-4 sm:w-6 origin-left"
-                style={{ background: `linear-gradient(90deg, ${node.color}80, ${pipelineNodes[i + 1].color}80)` }}
+                style={{ background: `linear-gradient(90deg, ${node.color}80, ${pipelineNodes[i + 1]?.color}80)` }}
               />
             )}
           </div>
@@ -460,7 +460,7 @@ function AssumptionTrackerAnimation() {
 
           <div className="space-y-2">
             {assumptionRows.map((row, i) => {
-              const currentStatus = row.statuses[tick % row.statuses.length];
+              const currentStatus = row.statuses[tick % row.statuses.length] ?? "Pending";
               const colorClass = (row.color as unknown as Record<string, string>)[currentStatus] ?? "text-white/40 bg-white/5 border-white/10";
               return (
                 <motion.div
@@ -683,6 +683,7 @@ function DecisionGateViz() {
           const Icon = step.icon;
           const done = active >= i;
           const isActive = active === i;
+          const nextStep = gateSteps[i + 1];
           return (
             <div key={step.label} className="flex items-center">
               <motion.div
@@ -712,7 +713,7 @@ function DecisionGateViz() {
                 <motion.div
                   animate={{ opacity: active > i ? 1 : 0.1 }}
                   className="h-px w-5 mx-0.5"
-                  style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${gateSteps[i+1].color}80)` : "var(--border)" }}
+                  style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${nextStep?.color ?? step.color}80)` : "var(--border)" }}
                 />
               )}
             </div>

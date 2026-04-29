@@ -123,12 +123,21 @@ const integrationLogos = [
   { name: "dbt", color: "#f59e0b", abbr: "dbt" },
 ];
 
+type TabId = "api" | "webhooks" | "crm" | "agents";
+
+type Tab = {
+  id: TabId;
+  label: string;
+  icon: any; // or a proper LucideIcon type if you want
+  color: string;
+};
+
 const tabs = [
   { id: "api", label: "REST API", icon: Code2, color: "#6366f1" },
   { id: "webhooks", label: "Webhooks", icon: Zap, color: "#f59e0b" },
   { id: "crm", label: "CRM", icon: Database, color: "#10b981" },
   { id: "agents", label: "External Agents", icon: Bot, color: "#a855f7" },
-];
+] as const;
 
 const webhookEvents = [
   { event: "decision.created", trigger: "New decision object created", color: "#6366f1" },
@@ -268,6 +277,7 @@ function IntelligenceLayerSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [active, setActive] = useState(-1);
 
+
   useEffect(() => {
     if (!inView) return;
     let i = 0;
@@ -302,42 +312,79 @@ function IntelligenceLayerSection() {
             {layers.map((layer, i) => {
               const Icon = layer.icon;
               const done = active >= i;
+              const nextLayer = layers[i + 1];
+
               return (
                 <div key={layer.label} className="flex items-center gap-1 flex-1 max-w-[160px]">
+
                   <motion.div
                     initial={{ opacity: 0, scale: 0.85 }}
                     animate={done ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.4, type: "spring" }}
                     className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl border text-center transition-all"
                     style={{
-                      borderColor: done ? (layer.highlight ? `${layer.color}60` : `${layer.color}30`) : "var(--border)",
-                      background: done ? (layer.highlight ? `${layer.color}14` : `${layer.color}07`) : "var(--card)",
-                      boxShadow: done && layer.highlight ? `0 0 40px ${layer.color}15` : "none",
+                      borderColor: done
+                        ? layer.highlight
+                          ? `${layer.color}60`
+                          : `${layer.color}30`
+                        : "var(--border)",
+                      background: done
+                        ? layer.highlight
+                          ? `${layer.color}14`
+                          : `${layer.color}07`
+                        : "var(--card)",
+                      boxShadow:
+                        done && layer.highlight
+                          ? `0 0 40px ${layer.color}15`
+                          : "none",
                     }}
                   >
-                    <div className="h-10 w-10 rounded-xl flex items-center justify-center"
-                      style={{ background: done ? `${layer.color}20` : "var(--muted)" }}>
-                      <Icon className="h-5 w-5" style={{ color: done ? layer.color : "var(--muted-foreground)" }} />
+                    <div
+                      className="h-10 w-10 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: done ? `${layer.color}20` : "var(--muted)",
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5"
+                        style={{
+                          color: done ? layer.color : "var(--muted-foreground)",
+                        }}
+                      />
                     </div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider"
-                      style={{ color: done ? "var(--foreground)" : "var(--muted-foreground)" }}>
+
+                    <p className="text-[10px] font-bold uppercase tracking-wider">
                       {layer.label}
                     </p>
+
                     <div className="space-y-0.5">
-                      {layer.items.map(item => (
-                        <p key={item} className="text-[9px]"
-                          style={{ color: done ? "var(--muted-foreground)" : "var(--muted-foreground)" }}>
+                      {layer.items.map((item) => (
+                        <p key={item} className="text-[9px] text-muted-foreground">
                           {item}
                         </p>
                       ))}
                     </div>
+
                     {layer.highlight && done && (
-                      <div className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: layer.color }} />
+                      <div
+                        className="h-1.5 w-1.5 rounded-full animate-pulse"
+                        style={{ background: layer.color }}
+                      />
                     )}
                   </motion.div>
-                  {i < layers.length - 1 && (
-                    <motion.div animate={{ opacity: active > i ? 1 : 0.1 }} className="h-px w-5 flex-shrink-0"
-                      style={{ background: active > i ? `linear-gradient(90deg,${layer.color}80,${layers[i+1].color}80)` : "var(--border)" }} />
+
+                  {/* Connector */}
+                  {i < layers.length - 1 && nextLayer && (
+                    <motion.div
+                      animate={{ opacity: active > i ? 1 : 0.1 }}
+                      className="h-px w-5 flex-shrink-0"
+                      style={{
+                        background:
+                          active > i
+                            ? `linear-gradient(90deg, ${layer.color}80, ${nextLayer.color}80)`
+                            : "var(--border)",
+                      }}
+                    />
                   )}
                 </div>
               );
@@ -483,10 +530,7 @@ function CRMVisual() {
 
 /* Integration categories section */
 function IntegrationCategoriesSection() {
-  const [activeTab, setActiveTab] = useState("api");
-  const tab = tabs.find(t => t.id === activeTab)!;
-
-  const contentMap: Record<string, {
+  const contentMap: Record<"api" | "webhooks" | "crm" | "agents", {
     title: string; desc: string; features: string[];
     visual: "api-code" | "webhook" | "crm" | "agent-code";
   }> = {
@@ -516,6 +560,7 @@ function IntegrationCategoriesSection() {
     },
   };
 
+  const [activeTab, setActiveTab] = useState<TabId>("api"); const tab = tabs.find(t => t.id === activeTab)!;
   const content = contentMap[activeTab];
 
   return (
@@ -535,11 +580,15 @@ function IntegrationCategoriesSection() {
 
         {/* Tab bar */}
         <Reveal delay={0.1} className="flex flex-wrap justify-center gap-2 mb-10">
-          {tabs.map(t => {
+          {tabs.map((t) => {
             const Icon = t.icon;
             const isActive = activeTab === t.id;
+
             return (
-              <motion.button key={t.id} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+              <motion.button
+                key={t.id}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setActiveTab(t.id)}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all"
                 style={{
@@ -548,7 +597,12 @@ function IntegrationCategoriesSection() {
                   color: isActive ? "var(--foreground)" : "var(--muted-foreground)",
                 }}
               >
-                <Icon className="h-4 w-4" style={{ color: isActive ? t.color : "var(--muted-foreground)" }} />
+                <Icon
+                  className="h-4 w-4"
+                  style={{
+                    color: isActive ? t.color : "var(--muted-foreground)",
+                  }}
+                />
                 {t.label}
               </motion.button>
             );
@@ -696,7 +750,7 @@ function ExternalAgentSection() {
                   </motion.div>
                   {i < nodes.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.08 }} className="h-px w-5 flex-shrink-0"
-                      style={{ background: active > i ? `linear-gradient(90deg,${node.color}80,${nodes[i+1].color}80)` : "var(--border)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${node.color}80,${nodes[i + 1]?.color}80)` : "var(--border)" }} />
                   )}
                 </div>
               );

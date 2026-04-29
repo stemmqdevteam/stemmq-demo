@@ -160,7 +160,9 @@ function ChangelogHero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const latestVersion = entries[0];
+  if (entries.length === 0) return null;
+
+  const latestVersion = entries[0]!;
   const latestMeta = categoryMeta[latestVersion.category];
 
   return (

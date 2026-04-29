@@ -434,7 +434,8 @@ function PipelineSection() {
   }, [inView]);
 
   const step = pipelineSteps[activeStep];
-  const Icon = step.icon;
+  if (!step) return null;
+  const Icon = step.icon ; 
 
   return (
     <section className="py-16 sm:py-24 bg-background">
@@ -815,7 +816,7 @@ function OrgMemorySection() {
     { label: "Product Roadmap", x: 65, y: 72, color: "#f59e0b", size: 12 },
     { label: "Risk Model", x: 50, y: 50, color: "#8b5cf6", size: 16 },
   ];
-  const edges = [[0,5],[1,5],[2,5],[3,5],[4,5],[1,3],[2,4],[0,2]];
+  const edges: [number, number][] = [[0,5],[1,5],[2,5],[3,5],[4,5],[1,3],[2,4],[0,2]];
 
   return (
     <section className="py-16 sm:py-24 bg-muted/20 border-y border-border/30">
@@ -866,17 +867,22 @@ function OrgMemorySection() {
               <div className="relative h-56 sm:h-64">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   {/* Edges */}
-                  {edges.map(([a, b], i) => (
+                  {edges.map(([a, b], i) => {
+                    const nodeA = nodes[a];
+                    const nodeB = nodes[b];
+                    if (!nodeA || !nodeB) return null;
+                    return (
                     <motion.line
                       key={i}
-                      x1={`${nodes[a].x}%`} y1={`${nodes[a].y}%`}
-                      x2={`${nodes[b].x}%`} y2={`${nodes[b].y}%`}
+                      x1={`${nodeA.x}%`} y1={`${nodeA.y}%`}
+                      x2={`${nodeB.x}%`} y2={`${nodeB.y}%`}
                       stroke="rgba(99,102,241,0.2)" strokeWidth="0.4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: i * 0.15 }}
                     />
-                  ))}
+                    );
+                  })}
                   {/* Nodes */}
                   {nodes.map((n, i) => (
                     <motion.g key={n.label}

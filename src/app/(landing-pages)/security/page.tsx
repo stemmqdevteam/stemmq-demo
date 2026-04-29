@@ -515,6 +515,7 @@ function DataFlowSection() {
             {dataFlowSteps.map((step, i) => {
               const Icon = step.icon;
               const done = active >= i;
+              const nextColor = dataFlowSteps[i + 1]?.color ?? step.color;
               return (
                 <div key={step.label} className="flex items-center">
                   <motion.div
@@ -545,7 +546,7 @@ function DataFlowSection() {
                   {i < dataFlowSteps.length - 1 && (
                     <motion.div animate={{ opacity: active > i ? 1 : 0.2 }}
                       className="h-px w-5 mx-0.5"
-                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${dataFlowSteps[i+1].color}80)` : "var(--border)" }} />
+                      style={{ background: active > i ? `linear-gradient(90deg,${step.color}80,${nextColor}80)` : "var(--border)" }} />
                   )}
                 </div>
               );

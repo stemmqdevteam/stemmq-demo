@@ -360,7 +360,7 @@ function APISection() {
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {section.endpoints.map(ep => {
-                          const method = ep.split(" ")[0];
+                          const method = ep.split(" ")[0] || "GET";
                           const mc: Record<string, string> = { POST: "#10b981", GET: "#6366f1", PATCH: "#f59e0b", DELETE: "#ef4444" };
                           return (
                             <code key={ep} className="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded"
