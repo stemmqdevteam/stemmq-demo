@@ -29,25 +29,22 @@ export function ScrollReveal({
   className,
   once = true,
 }: ScrollRevealProps) {
-  const variants = presetMap[preset];
+  const variants: Variants = presetMap[preset];
+
+  const defaultVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const mergedVariants: Variants = variants ?? defaultVariants;
 
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once, margin: "-50px" }}
-      variants={{
-        hidden: variants.hidden,
-        visible: {
-          ...(typeof variants.visible === "object" ? variants.visible : {}),
-          transition: {
-            ...((typeof variants.visible === "object" && "transition" in variants.visible
-              ? variants.visible.transition
-              : {}) as object),
-            delay,
-          },
-        },
-      }}
+      variants={mergedVariants}
+      transition={{ delay }}
       className={className}
     >
       {children}
