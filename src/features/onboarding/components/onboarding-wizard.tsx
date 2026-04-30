@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import {
   Building2, Globe, Users, Compass, Target,
   ArrowRight, ArrowLeft, Check, Zap,
@@ -70,11 +70,29 @@ const STEPS: { id: StepId; label: string }[] = [
 ]
 
 /* ── Transition variants ─────────────────────────────────── */
-const slideVariants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 32 : -32 }),
-  center: { opacity: 1, x: 0, transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] } },
-  exit:  (dir: number) => ({ opacity: 0, x: dir > 0 ? -32 : 32, transition: { duration: 0.2 } }),
-}
+const slideVariants: Variants = {
+  enter: (dir: number) => ({
+    opacity: 0,
+    x: dir > 0 ? 40 : -40,
+  }),
+
+  center: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.28,
+      ease: "easeOut", // ✅ now works without `as const`
+    },
+  },
+
+  exit: (dir: number) => ({
+    opacity: 0,
+    x: dir > 0 ? -40 : 40,
+    transition: {
+      duration: 0.18,
+    },
+  }),
+};
 
 /* ── Option card ─────────────────────────────────────────── */
 function OptionCard({ selected, onClick, children, className }: {
