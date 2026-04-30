@@ -41,14 +41,22 @@ import { createClient } from '@/lib/supabase/client'
      - Navigating to any page closes the mobile drawer.
    ────────────────────────────────────────────────────────────────────────── */
 
-const NAV = [
+type NavItem = {
+  href: string
+  label: string
+  Icon: React.ElementType
+  pro?: boolean
+  badge?: boolean
+}
+
+const NAV: NavItem[] = [
   { href: ROUTES.dashboard,     label: 'Overview',      Icon: LayoutDashboard },
   { href: ROUTES.decisions,     label: 'Decisions',     Icon: GitBranch },
   { href: ROUTES.assumptions,   label: 'Assumptions',   Icon: Brain },
   { href: ROUTES.simulations,   label: 'Simulations',   Icon: FlaskConical, pro: true },
   { href: ROUTES.analytics,     label: 'Analytics',     Icon: BarChart3 },
   { href: ROUTES.notifications, label: 'Notifications', Icon: Bell, badge: true },
-] as const
+]
 
 const BOTTOM_NAV = [{ href: ROUTES.settings, label: 'Settings', Icon: Settings }] as const
 
@@ -61,7 +69,7 @@ interface ServerProfile {
 
 /* ── Profile dropdown (shared by both modes) ─────────────────────────────── */
 function ProfileDropdown({ profile, org, plan, isAdmin, signOut, onClose }: {
-  profile: { full_name?: string | null; avatar_url?: string | null } | null
+  profile: { full_name?: string | null | undefined; avatar_url?: string | null | undefined; } | null | undefined
   org: { name?: string } | null
   plan: string; isAdmin: boolean
   signOut: () => void; onClose: () => void
@@ -97,8 +105,8 @@ function ProfileDropdown({ profile, org, plan, isAdmin, signOut, onClose }: {
         </div>
         <div className="py-1">
           {[
-            // { Icon: User,        label: 'Profile',  href: `${ROUTES.settings}/general` },
-            { Icon: Settings,    label: 'Settings', href: ROUTES.settings },
+            { Icon: User,        label: 'Profile',  href: `${ROUTES.settings}/general` },
+            // { Icon: Settings,    label: 'Settings', href: ROUTES.settings },
             // { Icon: CreditCard,  label: 'Billing',  href: `${ROUTES.settings}/billing` },
             // { Icon: ShieldAlert, label: 'Security', href: `${ROUTES.settings}/security` },
           ].map(item => (
@@ -187,7 +195,7 @@ function SidebarContent({
   signOut, isLoading, unread, pathname, dropdownOpen, setDropdownOpen,
 }: {
   collapsed: boolean
-  profile: { full_name?: string | null; avatar_url?: string | null } | null
+  profile: { full_name?: string | null | undefined; avatar_url?: string | null | undefined; } | null | undefined
   org: { name?: string } | null
   plan: string; isAdmin: boolean; isPro: boolean
   signOut: () => void; isLoading: boolean; unread: number
@@ -249,6 +257,7 @@ function SidebarContent({
       </div>
 
       {/* Profile footer */}
+
       <div className="relative border-t border-[var(--sidebar-border)]">
         <AnimatePresence>
           {dropdownOpen && !collapsed && (
