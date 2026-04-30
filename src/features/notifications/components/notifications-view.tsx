@@ -18,7 +18,7 @@ import { cn, formatRelativeTime } from '@/utils'
 import type { Notification } from '@/types'
 
 /* ── Source config ───────────────────────────────────────── */
-const SOURCE_CFG: Record<string, { Icon: React.ElementType; color: string; label: string }> = {
+const SOURCE_CFG = {
   decision:   { Icon: GitBranch,   color: 'bg-brand-100 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400',     label: 'Decision' },
   assumption: { Icon: Brain,       color: 'bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400',     label: 'Assumption' },
   billing:    { Icon: CreditCard,  color: 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400', label: 'Billing' },
@@ -27,7 +27,7 @@ const SOURCE_CFG: Record<string, { Icon: React.ElementType; color: string; label
   onboarding: { Icon: Zap,         color: 'bg-brand-100 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400',     label: 'Onboarding' },
   security:   { Icon: Shield,      color: 'bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400',             label: 'Security' },
   team:       { Icon: Users,       color: 'bg-cyan-100 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400',         label: 'Team' },
-}
+} as const
 
 const TYPE_RING: Record<string, string> = {
   success: 'ring-1 ring-emerald-200 dark:ring-emerald-900',
@@ -72,7 +72,7 @@ function NotifCard({ n, onRead, onDelete }: {
   onDelete: (id: string) => void
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const src  = SOURCE_CFG[n.source] ?? SOURCE_CFG.system
+  const src  = SOURCE_CFG[n.source as keyof typeof SOURCE_CFG] ?? SOURCE_CFG.system
   const ring = TYPE_RING[n.type] ?? ''
 
   return (
@@ -190,7 +190,7 @@ export function NotificationsView({ notifications: initial }: { notifications: N
     return notifications.filter((n) => {
       if (filter === 'all')      return true
       if (filter === 'unread')   return !n.read
-      if (filter === 'security') return n.source === 'security' || n.title.toLowerCase().includes('login') || n.title.toLowerCase().includes('sign-in')
+      if (filter === 'security') return n.title.toLowerCase().includes('login') || n.title.toLowerCase().includes('sign-in')
       return n.source === filter
     })
   }, [notifications, filter])
@@ -285,7 +285,7 @@ export function NotificationsView({ notifications: initial }: { notifications: N
             : f.id === 'all'
             ? notifications.length
             : f.id === 'security'
-            ? notifications.filter((n) => n.source === 'security' || n.title.toLowerCase().includes('login') || n.title.toLowerCase().includes('sign-in')).length
+            ? notifications.filter((n) => n.title.toLowerCase().includes('login') || n.title.toLowerCase().includes('sign-in')).length
             : notifications.filter((n) => n.source === f.id).length
 
           return (

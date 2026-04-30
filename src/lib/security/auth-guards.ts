@@ -16,14 +16,17 @@ export function checkAuthRateLimit(
 ): NextResponse | null {
   const ip = getClientIP(request)
 
-  const limits: Record<string, { max: number; windowMs: number }> = {
-    'magic-link': { max: 5,  windowMs: 60_000  },
-    'oauth':      { max: 10, windowMs: 60_000  },
-    'callback':   { max: 20, windowMs: 60_000  },
-    'api':        { max: 60, windowMs: 60_000  },
+  type LimitType = 'magic-link' | 'oauth' | 'callback' | 'api'
+
+  const limits: Record<LimitType, { max: number; windowMs: number }> = {
+    'magic-link': { max: 5, windowMs: 60_000 },
+    'oauth': { max: 10, windowMs: 60_000 },
+    'callback': { max: 20, windowMs: 60_000 },
+    'api': { max: 60, windowMs: 60_000 },
   }
 
-  const config = limits[type] ?? limits.api
+  const config = limits[type] 
+  // ?? limits.api  --- IGNORE ---
   const result = rateLimit(type, ip, config)
 
   if (!result.success) {
@@ -33,11 +36,11 @@ export function checkAuthRateLimit(
       {
         status: 429,
         headers: {
-          'Content-Type':  'application/json',
-          'Retry-After':   String(retryAfter),
-          'X-RateLimit-Limit':     String(result.limit),
+          'Content-Type': 'application/json',
+          'Retry-After': String(retryAfter),
+          'X-RateLimit-Limit': String(result.limit),
           'X-RateLimit-Remaining': String(result.remaining),
-          'X-RateLimit-Reset':     String(result.resetTime),
+          'X-RateLimit-Reset': String(result.resetTime),
         },
       }
     )

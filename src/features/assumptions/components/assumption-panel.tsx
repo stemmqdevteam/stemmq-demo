@@ -156,7 +156,7 @@ function ResolveForm({
   const action = resolveAssumption.bind(null, assumptionId, decisionId)
   const [state, formAction, isPending] = useActionState<ActionResult, FormData>(
     action as (state: ActionResult, formData: FormData) => Promise<ActionResult>,
-    { success: false, error: null }
+    { success: false, error: undefined }
   )
 
   if (state.success) {
@@ -221,7 +221,7 @@ export function AssumptionPanel({
   const action = createAssumption.bind(null, decisionId, orgId)
   const [state, formAction, isPending] = useActionState<ActionResult, FormData>(
     action as (state: ActionResult, formData: FormData) => Promise<ActionResult>,
-    { success: false, error: null }
+    { success: false, error: undefined }
   )
 
   if (state.success && showAdd) setShowAdd(false)

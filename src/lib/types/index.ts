@@ -24,7 +24,9 @@ export type NotificationSource =
   | 'system'
   | 'ai'
   | 'billing'
-export type SimulationStatus = 'pending' | 'running' | 'completed' | 'failed'
+  | 'security'
+  | 'team'
+// export type SimulationStatus = 'pending' | 'running' | 'completed' | 'failed'
 export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'converted' | 'rejected'
 export type InvitationStatus = 'pending' | 'accepted' | 'expired' | 'revoked'
 export type AuditAction =

@@ -18,15 +18,21 @@ function TypewriterWord() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    const word = rotatingWords[idx];
+    const word = rotatingWords[idx] ?? "";
     let timeout: ReturnType<typeof setTimeout>;
 
     if (!deleting && displayed.length < word.length) {
-      timeout = setTimeout(() => setDisplayed(word.slice(0, displayed.length + 1)), 60);
+      timeout = setTimeout(
+        () => setDisplayed(word.slice(0, displayed.length + 1)),
+        60
+      );
     } else if (!deleting && displayed.length === word.length) {
       timeout = setTimeout(() => setDeleting(true), 2200);
     } else if (deleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+      timeout = setTimeout(
+        () => setDisplayed(displayed.slice(0, -1)),
+        35
+      );
     } else if (deleting && displayed.length === 0) {
       setDeleting(false);
       setIdx((i) => (i + 1) % rotatingWords.length);

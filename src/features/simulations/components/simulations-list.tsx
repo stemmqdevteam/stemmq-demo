@@ -98,7 +98,9 @@ function SimulationCard({ simulation }: { simulation: Simulation }) {
             {simulation.title}
           </p>
           <div className="flex items-center gap-2 flex-wrap">
-            <Badge variant="outline" size="xs">{cfg.label}</Badge>
+            <Badge variant="secondary" className='px-2 py-0.5 text-xs font-medium'>
+              {cfg.label}
+            </Badge>
             {simulation.decisions?.title && (
               <span className="text-xs text-surface-400 truncate max-w-[200px]">
                 on "{simulation.decisions.title}"
@@ -114,7 +116,7 @@ function SimulationCard({ simulation }: { simulation: Simulation }) {
             <span className="text-xs text-surface-400">{result.confidence}% confidence</span>
           )}
           {!result && simulation.status === 'pending' && (
-            <Badge variant="default" size="xs">Pending</Badge>
+            <Badge variant="default" className='bg-amber-100 text-amber-800 dark:bg-amber-950/30 dark:text-amber-400'>Pending</Badge>
           )}
           <button
             onClick={(e) => { e.stopPropagation(); handleDelete() }}

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "neutral";
+type BadgeVariant = "default" | "success" | "warning" | "danger" | "info" | "neutral" | "secondary";
 type IntentVariant = "Growth" | "Defense" | "Efficiency" | "Experiment" | "Risk Mitigation";
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -15,6 +15,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   danger: "bg-danger/10 text-danger border-danger/20",
   info: "bg-accent-secondary/10 text-accent-secondary border-accent-secondary/20",
   neutral: "bg-muted text-muted-foreground border-border",
+  secondary: "bg-muted/50 text-foreground border-border",
 };
 
 const intentStyles: Record<IntentVariant, string> = {

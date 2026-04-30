@@ -55,7 +55,7 @@ const stagger = {
 }
 const up = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number] } },
 }
 
 /* KPI card */
@@ -73,7 +73,7 @@ function KPICard({
         onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         <motion.div
           animate={{ y: hovered ? -4 : 0 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.2,ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}
           className="relative h-full bg-[var(--card)] rounded-2xl border border-[var(--border)] p-5 transition-shadow duration-300"
           style={{ boxShadow: hovered ? '0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06)' : '0 1px 3px rgba(0,0,0,0.04)' }}
         >

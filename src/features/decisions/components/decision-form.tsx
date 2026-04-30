@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState, useTransition, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, easeOut } from 'framer-motion'
 import {
   GitBranch, Brain, Target, DollarSign, Clock,
   RotateCcw, Users, Tag, Lightbulb, AlertCircle,
@@ -58,11 +58,31 @@ const REVERSIBILITY_OPTIONS = [
   { value: 'irreversible', label: 'Irreversible', desc: 'Cannot be undone', color: 'border-red-400 dark:border-red-600 bg-red-50/50 dark:bg-red-950/20' },
 ]
 
-const slideVariants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
-  center: { opacity: 1, x: 0, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -40 : 40, transition: { duration: 0.18 } }),
-}
+import type { Variants } from "framer-motion";
+
+const slideVariants: Variants = {
+  enter: (dir: number) => ({
+    opacity: 0,
+    x: dir > 0 ? 40 : -40,
+  }),
+
+  center: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.28,
+      ease: "easeOut", // ✅ now works without `as const`
+    },
+  },
+
+  exit: (dir: number) => ({
+    opacity: 0,
+    x: dir > 0 ? -40 : 40,
+    transition: {
+      duration: 0.18,
+    },
+  }),
+};
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = ((current + 1) / total) * 100
@@ -434,7 +454,7 @@ export function DecisionForm({ mode, decision, orgId, onCancel }: Props) {
   const [tags, setTags] = useState<string[]>(decision?.tags ?? [])
   const [isPending, startTransition] = useTransition()
 
-  const currentStep = STEPS[stepIdx]
+  const currentStep = STEPS[stepIdx] ?? STEPS[0]!
   const isFirst = stepIdx === 0
   const isLast = stepIdx === STEPS.length - 1
 
@@ -443,7 +463,7 @@ export function DecisionForm({ mode, decision, orgId, onCancel }: Props) {
       if (!title.trim()) { setFormError('Please enter a decision title.'); return false }
       if (!intent) { setFormError('Please select an intent.'); return false }
     }
-    if (currentStep.id === 'assumptions') {
+    if (currentStep?.id === 'assumptions') {
       if (assumptions.filter(a => a.trim()).length === 0) { setFormError('Please add at least one assumption.'); return false }
     }
     return true

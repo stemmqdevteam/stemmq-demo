@@ -217,7 +217,7 @@ export function DecisionList({
                       {DECISION_STATUS_LABELS[d.status] ?? d.status}
                     </span>
                     {d.tags.slice(0, 3).map((tag) => (
-                      <Badge key={tag} variant="outline" size="xs">#{tag}</Badge>
+                      <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">#{tag}</Badge>
                     ))}
                     <span className="text-xs text-[var(--muted-foreground)] ml-auto hidden sm:block">
                       {formatRelativeTime(d.created_at)}
