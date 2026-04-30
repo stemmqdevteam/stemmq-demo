@@ -18,7 +18,7 @@ interface SelectProps {
   className?: string;
   label?: string;
   defaultValue?: string;
-  required
+  required: any
 }
 
 export function Select({ name, value, onChange, options, placeholder = "Select...", className, label, defaultValue,required }: SelectProps) {
