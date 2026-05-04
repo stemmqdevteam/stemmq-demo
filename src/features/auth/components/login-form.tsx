@@ -46,6 +46,8 @@ export function LoginForm() {
   const [oauthLoading, setOauthLoading] = useState(false)
   const searchParams = useSearchParams()
   const redirect = searchParams.get('redirect') ?? '/dashboard'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL!
+
 
   const {
     register,
@@ -59,7 +61,7 @@ export function LoginForm() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/callback?redirect=${encodeURIComponent(redirect)}`,
+        emailRedirectTo: `${baseUrl}/callback?redirect=${encodeURIComponent(redirect)}`,
       },
     })
     if (error) { toast.error(error.message); return }
@@ -72,7 +74,7 @@ export function LoginForm() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/callback?redirect=${encodeURIComponent(redirect)}`,
+        redirectTo: `${baseUrl}/callback?redirect=${encodeURIComponent(redirect)}`,
         queryParams: { access_type: 'offline', prompt: 'consent' },
       },
     })
