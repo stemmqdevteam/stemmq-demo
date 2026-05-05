@@ -14,7 +14,7 @@ import { checkAuthRateLimit, sanitizeRedirect } from '@/lib/security/auth-guards
  * 3. Redirect URL sanitized — prevents open redirect attacks
  * 4. Cookies set HttpOnly + Secure + SameSite=Lax
  * 5. Service role used for DB writes — not exposed to client
- * 6. All errors logged for monitoring
+ * 6. All errors logged for monitoring 
  */
 export async function GET(request: NextRequest) {
   // Rate limit first — before any expensive DB operations
